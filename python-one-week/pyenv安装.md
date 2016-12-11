@@ -44,6 +44,7 @@ global名切换全局默认Python版本
 ---
 
 
+
 ## `Python` 版本管理器 `Pyenv`
 
 我们需要在一台主机上安装多版本的 `Python`, 可以使用 `Pyenv` 来管理 `Python` 的版本.
