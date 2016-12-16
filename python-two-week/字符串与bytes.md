@@ -1,54 +1,62 @@
-# Python 学习: 字符串格式化
+## str是文本序列
+### bytes是字节序列
+    * 文本是有编码的 (utf-8, gbk, GB18030等)
+    * 字节没有编码这种说法
+    * 文本的编码指的是字符如何使用字节来表示
 
-## printf style
+### Python3字符串默认使用utf-8编码
+```py
+In [73]: s = '马哥教育'
 
-绝大多数语言都支持 `printf style` 风格的语句对字符串进行格式化, `python` 也支持.
+In [77]: s.encode() 
+In [73]: s = '马哥教育' #把字符串编码为bytes
+Out[77]: b'\xe9\xa9\xac\xe5\x93\xa5\xe6\x95\x99\xe8\x82\xb2'
 
-**Example**
-```python
-In [5]: 'Hello, %s!' % 'AnyIsalIn'
-Out[5]: 'Hello, AnyIsalIn!'
-```
+In [78]: '马'.encode()
+Out[78]: b'\xe9\xa9\xac'
 
-**传递多个参数**
 
-```python
-In [8]: 'Hello, %s %s' % ('AnyIsalIn','....') #需要传递一个元组作为参数.
-Out[8]: 'Hello, AnyIsalIn ....'
 
-In [10]: 'Hello, %s %s' % ('AnyIsalIn','!')
-Out[10]: 'Hello, AnyIsalIn !'
-```
-**Template**
+In [83]: bin(0xe9)
+Out[83]: '0b11101001'
 
-可以传入一个字典使其支持关键词参数
 
-```python
-In [64]: 'Hi, %(name)s' % {'name': 'anyisalin'} #需要传入一个字典
-Out[64]: 'Hi, anyisalin'
+In [84]: b = s.encode()
 
-In [65]: 'Hi, %(name)s, %(age)s' % {'name': 'anyisalin', 'age': 18}
-Out[65]: 'Hi, anyisalin, 18'
-```
+In [85]: b
+Out[85]: b'\xe9\xa9\xac\xe5\x93\xa5\xe6\x95\x99\xe8\x82\xb2'
 
-## format
-
-`python3` 中支持更易用的 `format` 方法来对字符串进行格式化.
-
-**Example**
-
-```python
-In [2]: 'Hi {}, Age {}'.format('AnyIsalIn', '18')  #传入一个元组
-Out[2]: 'Hi AnyIsalIn, Age 18'
-
-In [4]: 'Hi {name}, Age {age}'.format(name='AnyIsalIn', age=18) #同样支持关键字参数
-Out[4]: 'Hi AnyIsalIn, Age 18'
-```
-
-还支持对传递的值进行操作后返回
-
-```python
-In [6]: '{lst[0]}'.format(lst=['a', 'b', 'c']) #返回列表的第一个元素.
-Out[6]: 'a'
+In [86]: b.decode() # bytes.decode() 把bytes转化为str
+Out[86]: '马哥教育'
 
 ```
+##  bytes
+* 除了encode外， str操作，都有对应bytes的版本， 但是传入参数也必须是bytes
+```py
+In [87]:  b'abc'.find('b') # 参数必须也是bytes
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-87-90305170cb68> in <module>()
+----> 1 b'abc'.find('b') # 参数必须也是bytes
+
+TypeError: a bytes-like object is required, not 'str'
+
+
+In [88]: b'abc'.find(b'b')
+Out[88]: 1
+
+In [90]: '马哥教育'.encode().find(b'\xa9')  # bytes的操作是按字节来的
+Out[90]: 1
+
+In [91]: '马哥教育'.encode()
+Out[91]: b'\xe9\xa9\xac\xe5\x93\xa5\xe6\x95\x99\xe8\x82\xb2'
+
+In [92]: len('马哥教育'.encode())
+Out[92]: 12
+
+n [94]: b.decode()  # 转化为str
+Out[94]: '马哥教育'
+
+In [95]: b.hex() # 转化为16进制
+Out[95]: 'e9a9ace593a5e69599e882b2'
+
